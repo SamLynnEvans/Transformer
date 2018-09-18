@@ -6,9 +6,7 @@ from Process import *
 import torch.nn.functional as F
 from Optim import CosineWithRestarts
 from Batch import create_masks
-import pdb
 import dill as pickle
-import IPython
 
 def train_model(model, opt):
     
