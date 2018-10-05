@@ -4,6 +4,12 @@ This is a pytorch implementation of the transformer model. If you'd like to unde
 
 Using the Europarl dataset plus the dataset in the data folder, I was able to achieve a BLEU score of 0.39 on the test set, after 4/5 days of training on a single 8gb GPU. For more results see the tutorial again.
 
+# Train the model immediately on FloydHub
+
+[![Run on FloydHub](https://static.floydhub.com/button/button-small.svg)](https://floydhub.com/run?template=https://github.com/floydhub/sentiment-analysis-template)
+
+Launch a [FloydHub Workspace](https://www.floydhub.com/product/build) to start training this model with 1 click. Workspace is a GPU-enabled cloud IDE for machine learning. It provides a fully configured environment so you can start hacking right away, without worrying about dependencies, data sets, etc.
+
 # Usage
 
 Two text files containing parallel sentences (seperated by '\n' characters) in two languages are required to train the model. See an example of this in the data/ folder (french.txt and english.txt).
