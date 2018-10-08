@@ -10,6 +10,8 @@ Using the Europarl dataset plus the dataset in the data folder, I was able to ac
 
 Launch a [FloydHub Workspace](https://www.floydhub.com/product/build) to start training this model with 1 click. Workspace is a GPU-enabled cloud IDE for machine learning. It provides a fully configured environment so you can start hacking right away, without worrying about dependencies, data sets, etc.
 
+Once you've started the workspace, run the 'start_here' notebook or type 'floyd run' into the workspace terminal. This will begin to train the model on the sample dataset.
+
 # Usage
 
 Two text files containing parallel sentences (seperated by '\n' characters) in two languages are required to train the model. See an example of this in the data/ folder (french.txt and english.txt).
