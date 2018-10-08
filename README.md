@@ -6,7 +6,7 @@ Using the Europarl dataset plus the dataset in the data folder, I was able to ac
 
 # Train the model immediately on FloydHub
 
-[![Run on FloydHub](https://static.floydhub.com/button/button-small.svg)](https://floydhub.com/run?template=https://github.com/floydhub/sentiment-analysis-template)
+[![Run on FloydHub](https://static.floydhub.com/button/button-small.svg)](https://floydhub.com/run)
 
 Launch a [FloydHub Workspace](https://www.floydhub.com/product/build) to start training this model with 1 click. Workspace is a GPU-enabled cloud IDE for machine learning. It provides a fully configured environment so you can start hacking right away, without worrying about dependencies, data sets, etc.
 
