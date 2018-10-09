@@ -74,7 +74,11 @@ def create_dataset(opt, SRC, TRG):
         SRC.build_vocab(train)
         TRG.build_vocab(train)
         if opt.checkpoint > 0:
-            os.mkdir("weights")
+            try:
+                os.mkdir("weights")
+            except:
+                print("weights folder already exists, run program with -load_weights weights to load them")
+                quit()
             pickle.dump(SRC, open('weights/SRC.pkl', 'wb'))
             pickle.dump(TRG, open('weights/TRG.pkl', 'wb'))
 

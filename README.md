@@ -47,7 +47,7 @@ Extra paramaters include:<br />
 -lr : learning rate (default=0.0001)<br />
 -load_weights : if loading pretrained weights, put path to folder where previous weights and pickles were saved <br />
 -max_strlen : sentenced with more words will not be included in dataset (default=80)<br />
-
+-checkpoint : enter a number of minutes. Model's weights will then be saved every this many minutes to folder 'weights/'<br />
 # Training and Translating
 
 ```
