@@ -19,8 +19,9 @@ def train_model(model, opt):
     for epoch in range(opt.epochs):
 
         total_loss = 0
-        print("   %dm: epoch %d [%s]  %d%%  loss = %s" %\
-        ((time.time() - start)//60, epoch + 1, "".join(' '*20), 0, '...'), end='\r')
+        if opt.floyd is False:
+            print("   %dm: epoch %d [%s]  %d%%  loss = %s" %\
+            ((time.time() - start)//60, epoch + 1, "".join(' '*20), 0, '...'), end='\r')
         
         if opt.checkpoint > 0:
             torch.save(model.state_dict(), 'weights/model_weights')
@@ -49,7 +50,7 @@ def train_model(model, opt):
                     print("   %dm: epoch %d [%s%s]  %d%%  loss = %.3f" %\
                     ((time.time() - start)//60, epoch + 1, "".join('#'*(p//5)), "".join(' '*(20-(p//5))), p, avg_loss), end='\r')
                  else:
-                    print("   %dm: epoch %d [%s%s]  %d%%  loss = %.3f" %\
+                    print("   %dm: epoch %d [%s%s]  %d%%  loss = %.3f\n" %\
                     ((time.time() - start)//60, epoch + 1, "".join('#'*(p//5)), "".join(' '*(20-(p//5))), p, avg_loss))
                  total_loss = 0
             
@@ -100,7 +101,7 @@ def main():
         opt.sched = CosineWithRestarts(opt.optimizer, T_max=opt.train_len)
 
     if opt.checkpoint > 0:
-        print("model weighs will be saved every %d minutes and at end of epoch to directory weights/"%(opt.checkpoint))
+        print("model weights will be saved every %d minutes and at end of epoch to directory weights/"%(opt.checkpoint))
     train_model(model, opt)
 
     if opt.floyd is False:
