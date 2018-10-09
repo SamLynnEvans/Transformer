@@ -35,8 +35,8 @@ def create_fields(opt):
     t_src = tokenize(opt.src_lang)
     t_trg = tokenize(opt.trg_lang)
 
-    SRC = data.Field(lower=True, tokenize=t_src.tokenizer, init_token='<sos>', eos_token='<eos>', pad_token="<blank>")
-    TRG = data.Field(lower=True, tokenize=t_trg.tokenizer, pad_token="<blank")
+    TRG = data.Field(lower=True, tokenize=t_trg.tokenizer, init_token='<sos>', eos_token='<eos>')
+    SRC = data.Field(lower=True, tokenize=t_src.tokenizer)
 
     if opt.load_weights is not None:
         try:
