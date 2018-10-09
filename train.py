@@ -13,6 +13,8 @@ def train_model(model, opt):
     print("training model...")
     model.train()
     start = time.time()
+    if opt.checkpoint > 0:
+        cptime = time.time()
                  
     for epoch in range(opt.epochs):
 
@@ -40,9 +42,17 @@ def train_model(model, opt):
             if (i + 1) % opt.printevery == 0:
                  p = int(100 * (i + 1) / opt.train_len)
                  avg_loss = total_loss/opt.printevery
-                 print("%dm: epoch %d [%s%s]  %d%%  loss = %.3f" %\
-                 ((time.time() - start)//60, epoch + 1, "".join('#'*(p//5)), "".join(' '*(20-(p//5))), p, avg_loss), end='\r')
+                 if opt.floyd is False:
+                    print("%dm: epoch %d [%s%s]  %d%%  loss = %.3f" %\
+                    ((time.time() - start)//60, epoch + 1, "".join('#'*(p//5)), "".join(' '*(20-(p//5))), p, avg_loss), end='\r')
+                 else:
+                    print("%dm: epoch %d [%s%s]  %d%%  loss = %.3f" %\
+                    ((time.time() - start)//60, epoch + 1, "".join('#'*(p//5)), "".join(' '*(20-(p//5))), p, avg_loss))
                  total_loss = 0
+            
+            if opt.checkpoint > 0 and ((time.time()-cptime)//60) // opt.checkpoint >= 1:
+                torch.save(model.state_dict(), 'weights/model_weights')
+                cptime = time.time()
    
    
         print("%dm: epoch %d [%s%s]  %d%%  loss = %.3f\nepoch %d complete, loss = %.03f" %\
@@ -68,6 +78,9 @@ def main():
     parser.add_argument('-load_weights')
     parser.add_argument('-create_valset', action='store_true')
     parser.add_argument('-max_strlen', type=int, default=80)
+    parser.add_argument('-floyd', action='store_true')
+    parser.add_argument('-checkpoint', type=int, default=0)
+
     opt = parser.parse_args()
     
     opt.device = 0 if opt.no_cuda is False else -1
@@ -85,7 +98,8 @@ def main():
 
     train_model(model, opt)
 
-    promptNextAction(model, opt, SRC, TRG)
+    if opt.floyd is False:
+        promptNextAction(model, opt, SRC, TRG)
 
 def yesno(response):
     while True:
@@ -96,7 +110,11 @@ def yesno(response):
 
 def promptNextAction(model, opt, SRC, TRG):
 
-    saved_once = 0 if opt.load_weights is None else 1
+    if opt.load_weights is not None:
+        dst = opt.load_weights
+    if opt.checkpoint > 0:
+        dst = 'weights'
+    saved_once = 0 if opt.load_weights is None or opt.checkpoint == 0 else 1
 
     while True:
         save = yesno(input('training complete, save results? [y/n] : '))

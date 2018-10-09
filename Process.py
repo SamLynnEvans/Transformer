@@ -51,7 +51,7 @@ def create_fields(opt):
 
 def create_dataset(opt, SRC, TRG):
 
-    print("creating dataset and iterator...")
+    print("creating dataset and iterator... ")
 
     raw_data = {'src' : [line for line in opt.src_data], 'trg': [line for line in opt.trg_data]}
     df = pd.DataFrame(raw_data, columns=["src", "trg"])
@@ -73,6 +73,10 @@ def create_dataset(opt, SRC, TRG):
     if opt.load_weights is None:
         SRC.build_vocab(train)
         TRG.build_vocab(train)
+        if opt.checkpoint > 0:
+            os.mkdir("weights")
+            pickle.dump(SRC, open('weights/SRC.pkl', 'wb'))
+            pickle.dump(TRG, open('weights/TRG.pkl', 'wb'))
 
     opt.src_pad = SRC.vocab.stoi['<pad>']
     opt.trg_pad = TRG.vocab.stoi['<pad>']
