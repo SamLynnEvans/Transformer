@@ -37,7 +37,7 @@ def translate_sentence(sentence, model, opt, SRC, TRG):
     indexed = []
     sentence = SRC.preprocess(sentence)
     for tok in sentence:
-        if SRC.vocab.stoi[tok] != 0:
+        if SRC.vocab.stoi[tok] != 0 or opt.floyd == True:
             indexed.append(SRC.vocab.stoi[tok])
         else:
             indexed.append(get_synonym(tok, SRC))
@@ -72,6 +72,7 @@ def main():
     parser.add_argument('-heads', type=int, default=8)
     parser.add_argument('-dropout', type=int, default=0.1)
     parser.add_argument('-no_cuda', action='store_true')
+    parser.add_argument('-floyd', action='store_true')
     
     opt = parser.parse_args()
 
