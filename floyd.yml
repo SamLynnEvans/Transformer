@@ -1,3 +1,3 @@
 env: pytorch-0.4
 machine: gpu
-command: spacy download en && spacy download fr && python train.py -src_data /floyd/input/trans_data/english.txt -trg_data /floyd/input/trans_data/french.txt -src_lang en -trg_lang fr -floyd -checkpoint 15 -batch_size 2000 -epochs 10
+command: spacy download en && spacy download fr && python train.py -src_data /floyd/input/trans_data/english.txt -trg_data /floyd/input/trans_data/french.txt -src_lang en -trg_lang fr -floyd -checkpoint 15 -batchsize 3000 -epochs 10
