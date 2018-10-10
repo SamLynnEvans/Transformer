@@ -50,7 +50,7 @@ def train_model(model, opt):
                     print("   %dm: epoch %d [%s%s]  %d%%  loss = %.3f" %\
                     ((time.time() - start)//60, epoch + 1, "".join('#'*(p//5)), "".join(' '*(20-(p//5))), p, avg_loss), end='\r')
                  else:
-                    print("   %dm: epoch %d [%s%s]  %d%%  loss = %.3f\n" %\
+                    print("   %dm: epoch %d [%s%s]  %d%%  loss = %.3f" %\
                     ((time.time() - start)//60, epoch + 1, "".join('#'*(p//5)), "".join(' '*(20-(p//5))), p, avg_loss))
                  total_loss = 0
             
