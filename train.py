@@ -102,6 +102,12 @@ def main():
 
     if opt.checkpoint > 0:
         print("model weights will be saved every %d minutes and at end of epoch to directory weights/"%(opt.checkpoint))
+    
+    if opt.load_weights is not None and opt.floyd is not None:
+        os.mkdir('weights')
+        pickle.dump(SRC, open('weights/SRC.pkl', 'wb'))
+        pickle.dump(TRG, open('weights/TRG.pkl', 'wb'))
+    
     train_model(model, opt)
 
     if opt.floyd is False:
