@@ -34,7 +34,7 @@ For example, to train tan English->French translator on the datasets provided in
 ```
 python train.py -src_data data/english.txt -trg_data data/french.txt -src_lang en -trg_lang fr
 ```
-Extra paramaters include:<br />
+Additional parameters:<br />
 -epochs : how many epochs to train data for (default=2)<br />
 -batch_size : measured as number of tokens fed to model in each iteration (default=1500)<br />
 -n_layers : how many layers to have in Transformer model (default=6)<br />
