@@ -2,7 +2,7 @@
 
 This is a pytorch implementation of the transformer model. If you'd like to understand the model, or any of the code better, please refer to <a href=https://towardsdatascience.com/how-to-code-the-transformer-in-pytorch-24db27c8f9ec>my tutorial</a>.
 
-Using the Europarl dataset plus the dataset in the data folder, I was able to achieve a BLEU score of 0.39 on the test set, after 4/5 days of training on a single 8gb GPU. For more results see the tutorial again.
+Using the Europarl dataset plus the dataset in the data folder, I was able to achieve a BLEU score of 0.39 on the test set (current SOTA is around 0.42), after 4/5 days of training on a single 8gb GPU. For more results see the tutorial again.
 
 # Train the model immediately on FloydHub
 
