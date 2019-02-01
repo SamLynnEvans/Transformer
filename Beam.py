@@ -70,9 +70,18 @@ def beam_search(src, model, SRC, TRG, opt):
     
         outputs, log_scores = k_best_outputs(outputs, out, log_scores, i, opt.k)
         
-        if (outputs==eos_tok).nonzero().size(0) == opt.k:
+        ones = (outputs==eos_tok).nonzero() # Occurrences of end symbols for all input sentences.
+        sentence_lengths = torch.zeros(len(outputs), dtype=torch.long).cuda()
+        for vec in ones:
+            i = vec[0]
+            if sentence_lengts[i]==0: # First end symbol has not been found yet
+                sentence_lengths[i] = one[1] # Position of first end symbol
+
+        num_finished_sentences = len([s for s in sentence_lengths if s > 0])
+
+        if num_finished_sentences == opt.k:
             alpha = 0.7
-            div = 1/((outputs==eos_tok).nonzero()[:,1].type_as(log_scores)**alpha)
+            dif = 1/(sentence_lengths.type_as(log_scores)**alpha)
             _, ind = torch.max(log_scores * div, 1)
             ind = ind.data[0]
             break
