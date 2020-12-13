@@ -17,7 +17,7 @@ class Encoder(nn.Module):
         self.layers = get_clones(EncoderLayer(d_model, heads, dropout), N)
         self.norm = Norm(d_model)
     def forward(self, src, mask):
-        x = self.embed(src)
+        x = self.embed(src.cuda())
         x = self.pe(x)
         for i in range(self.N):
             x = self.layers[i](x, mask)
@@ -66,8 +66,7 @@ def get_model(opt, src_vocab, trg_vocab):
             if p.dim() > 1:
                 nn.init.xavier_uniform_(p) 
     
-    if opt.device == 0:
-        model = model.cuda()
+    model = model.to(opt.device)
     
     return model
     
