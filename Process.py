@@ -26,9 +26,9 @@ def create_fields(opt):
     
     spacy_langs = ['en', 'fr', 'de', 'es', 'pt', 'it', 'nl']
     if opt.src_lang not in spacy_langs:
-        print('invalid src language: ' + opt.src_lang + 'supported languages : ' + spacy_langs)  
+        print('invalid src language: ' + opt.src_lang + 'supported languages : ' + str(spacy_langs))
     if opt.trg_lang not in spacy_langs:
-        print('invalid trg language: ' + opt.trg_lang + 'supported languages : ' + spacy_langs)
+        print('invalid trg language: ' + opt.trg_lang + 'supported languages : ' + str(spacy_langs))
     
     print("loading spacy tokenizers...")
     
