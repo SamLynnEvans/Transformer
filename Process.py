@@ -1,6 +1,6 @@
 import pandas as pd
 import torchtext
-from torchtext import data
+from torchtext.legacy import data
 from Tokenize import tokenize
 from Batch import MyIterator, batch_size_fn
 import os
@@ -24,7 +24,7 @@ def read_data(opt):
 
 def create_fields(opt):
     
-    spacy_langs = ['en', 'fr', 'de', 'es', 'pt', 'it', 'nl']
+    spacy_langs = ['en_core_web_sm', 'fr_core_news_sm', 'de', 'es', 'pt', 'it', 'nl']
     if opt.src_lang not in spacy_langs:
         print('invalid src language: ' + opt.src_lang + 'supported languages : ' + str(spacy_langs))
     if opt.trg_lang not in spacy_langs:

@@ -37,17 +37,15 @@ def translate_sentence(sentence, model, opt, SRC, TRG):
     indexed = []
     sentence = SRC.preprocess(sentence)
     for tok in sentence:
-        if SRC.vocab.stoi[tok] != 0 or opt.floyd == True:
+        if SRC.vocab.stoi[tok] != 0 or opt.floyd is True:
             indexed.append(SRC.vocab.stoi[tok])
         else:
             indexed.append(get_synonym(tok, SRC))
-    sentence = Variable(torch.LongTensor([indexed]))
-    if opt.device == 0:
-        sentence = sentence.cuda()
-    
+    sentence = Variable(torch.LongTensor([indexed]), device=opt.device)
+
     sentence = beam_search(sentence, model, SRC, TRG, opt)
 
-    return  multiple_replace({' ?' : '?',' !':'!',' .':'.','\' ':'\'',' ,':','}, sentence)
+    return multiple_replace({' ?': '?', ' !': '!', ' .': '.', '\' ': '\'', ' ,': ','}, sentence)
 
 def translate(opt, model, SRC, TRG):
     sentences = opt.text.lower().split('.')
@@ -76,7 +74,7 @@ def main():
     
     opt = parser.parse_args()
 
-    opt.device = 0 if opt.no_cuda is False else -1
+    opt.device = 'cuda' if opt.no_cuda is False else 'cpu'
  
     assert opt.k > 0
     assert opt.max_len > 10
