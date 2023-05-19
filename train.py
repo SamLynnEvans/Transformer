@@ -28,10 +28,12 @@ def train_model(model, opt):
                     
         for i, batch in enumerate(opt.train): 
 
-            src = batch.src.transpose(0,1)
-            trg = batch.trg.transpose(0,1)
+            src = batch.src.transpose(0, 1).to(opt.device)
+            trg = batch.trg.transpose(0, 1).to(opt.device)
             trg_input = trg[:, :-1]
             src_mask, trg_mask = create_masks(src, trg_input, opt)
+            src_mask.to(opt.device)
+            trg_mask.to(opt.device)
             preds = model(src, trg_input, src_mask, trg_mask)
             ys = trg[:, 1:].contiguous().view(-1)
             opt.optimizer.zero_grad()
@@ -86,11 +88,11 @@ def main():
     parser.add_argument('-checkpoint', type=int, default=0)
 
     opt = parser.parse_args()
-    
-    opt.device = 0 if opt.no_cuda is False else -1
-    if opt.device == 0:
+
+    opt.device = 'cuda' if opt.no_cuda is False else 'cpu'
+    if opt.device == 'cuda':
         assert torch.cuda.is_available()
-    
+
     read_data(opt)
     SRC, TRG = create_fields(opt)
     opt.train = create_dataset(opt, SRC, TRG)

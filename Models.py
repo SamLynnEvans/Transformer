@@ -57,6 +57,7 @@ def get_model(opt, src_vocab, trg_vocab):
     assert opt.dropout < 1
 
     model = Transformer(src_vocab, trg_vocab, opt.d_model, opt.n_layers, opt.heads, opt.dropout)
+    model.to(opt.device)
        
     if opt.load_weights is not None:
         print("loading pretrained weights...")
@@ -65,9 +66,6 @@ def get_model(opt, src_vocab, trg_vocab):
         for p in model.parameters():
             if p.dim() > 1:
                 nn.init.xavier_uniform_(p) 
-    
-    if opt.device == 0:
-        model = model.cuda()
     
     return model
     
